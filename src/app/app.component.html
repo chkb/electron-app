@@ -1,0 +1,50 @@
+<nz-layout>
+    <nz-sider nzCollapsible
+              [(nzCollapsed)]="isCollapsed"
+              [nzTrigger]="triggerTemplate">
+        <div class="logo">
+        </div>
+        <ul nz-menu
+            [nzTheme]="'dark'"
+            [nzMode]="'inline'"
+            [nzInlineCollapsed]="isCollapsed">
+            <li nz-submenu>
+                <span title><i nz-icon
+                       type="dashboard"></i><span class="nav-text">Dashboard</span></span>
+
+            </li>
+            <li nz-submenu>
+                <span title><i nz-icon
+                       type="team"></i><span class="nav-text">Team</span></span>
+                <ul>
+                    <li nz-menu-item>Table List</li>
+                    <li nz-menu-item>Create Form</li>
+                    <li nz-menu-item>Edit Form</li>
+                    <li nz-menu-item>View Form</li>
+                </ul>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header style="background: #001529; padding:8px;">
+            <i class="anticon trigger"
+               [class.anticon-menu-fold]="!isCollapsed"
+               [class.anticon-menu-unfold]="isCollapsed"
+               (click)="isCollapsed=!isCollapsed"></i>
+        </nz-header>
+        <nz-content style="margin:0 16px;">
+            <nz-breadcrumb style="margin:16px 0;">
+                <nz-breadcrumb-item>User</nz-breadcrumb-item>
+                <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+            </nz-breadcrumb>
+            <div class="content-container">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+        <nz-footer style="text-align: center;">Design by Chakib Benhaddou</nz-footer>
+    </nz-layout>
+</nz-layout>
+<ng-template #trigger>
+    <i nz-icon
+       type="up"></i>
+</ng-template>
