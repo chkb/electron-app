@@ -1,0 +1,17 @@
+<input nz-input
+       class="todo-input-field "
+       placeholder="Basic usage"
+       placeholder="Add Todo..."
+       #input
+       (keydown.enter)="add(input)">
+
+<app-todos-filters (update)="changeFilter($event)"
+                   [filters]="filters"
+                   [active]="activeFilter$ | async">
+</app-todos-filters>
+
+<app-todos [todos]="todos$ | async"
+           (delete)="delete($event)"
+           (complete)="complete($event)"></app-todos>
+
+<div *ngIf="selectAllDone$ | async">All done!!!!</div>

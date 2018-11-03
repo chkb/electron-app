@@ -24,3 +24,7 @@ nz-progress {
 .ant-badge:not(.ant-badge-status) {
     margin-right: 20px;
 }
+
+.table-container{
+    width: 88vw;
+}
