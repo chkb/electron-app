@@ -6,3 +6,6 @@
 
 # dependencies
 /node_modules
+
+# CI/CD config
+.travis.yml

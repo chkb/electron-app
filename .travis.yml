@@ -15,5 +15,11 @@ before_script:
   - npm install -g @angular/cli
 
 script:
+  - npm install
   - ng build --prod --aot
   - ng test
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "We1DBQTI5bMOQWgrsfRb2A"
