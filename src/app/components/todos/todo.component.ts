@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Todo } from './state/todo.model';
 import { FormControl } from '@angular/forms';
 import { ID } from '@datorama/akita';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
+import { Todo } from './state/todo.model';
+
 @Component({
   selector: 'app-todo',
   template: `
-
-  <nz-card style="width:300px;" [nzActions]="[actionSetting,actionEdit,actionEllipsis]">
+  <nz-card style="width:300px;" [nzActions]="[actionSetting, actionEllipsis]">
   <div class="flex align-center sb">
      <div class="flex">
       <label>

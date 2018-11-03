@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
     );
   }
 
-
   buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
     // If no routeConfig is avalailable we are on the root path
     const label = route.routeConfig ? route.routeConfig.data['breadcrumb'] : 'Home';
