@@ -4,7 +4,7 @@ host ::ng-deep .trigger {
     padding: 0 24px;
     cursor: pointer;
     transition: color .3s;
-    
+
 }
 
 :host ::ng-deep .trigger:hover {
@@ -13,14 +13,11 @@ host ::ng-deep .trigger {
 
 :host ::ng-deep .logo {
     height: 32px;
-    background: rgba(255, 255, 255, .2);
     margin: 16px;
 }
 
-.content-container{
-    background:#fff;
+.content-container {
+    background: #fff;
     padding: 24px;
-    min-height: calc(100vh - 184px)
+    min-height: calc(100vh - 184px);
 }
-
-

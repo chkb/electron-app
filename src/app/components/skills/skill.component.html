@@ -1,0 +1,80 @@
+<div class="table-container">
+  <form nz-form
+        [formGroup]="validateForm"
+        (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5"
+                     nzRequired
+                     nzFor="note">Name
+      </nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input id="skill"
+               type="text"
+               nz-input
+               formControlName="name">
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input a name!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5"
+                     nzRequired
+                     nzFor="note">Tag
+      </nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-select style="width: 120px;"
+                   formControlName="tag"
+                   nzAllowClear
+                   nzPlaceHolder="Choose">
+          <nz-option nzValue="backend"
+                     nzLabel="Backend"></nz-option>
+          <nz-option nzValue="frontend"
+                     nzLabel="Frontend"></nz-option>
+          <nz-option nzValue="devops"
+                     nzLabel="DevOps"></nz-option>
+          <nz-option nzValue="process"
+                     nzLabel="Process"></nz-option>
+        </nz-select>
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input a tag!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="12"
+                       [nzOffset]="5">
+        <button nz-button
+                nzType="primary">Add Skill</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <nz-table #filterTable
+            [nzData]="displayData">
+    <thead (nzSortChange)="sort($event)"
+           nzSingleSort>
+      <tr>
+        <th nzShowSort
+            nzSortKey="name"
+            (nzFilterChange)="filter($event,searchAddress)">
+          Name
+        </th>
+        <th nzShowSort
+            nzSortKey="tag">
+          Tag
+        </th>
+        <th>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let obj of filterTable.data">
+        <td>{{obj.data.name}}</td>
+        <td>#{{obj.data.tag}}</td>
+        <td>
+          <button nz-button
+                  nzType="danger"
+                  nzShape="circle"
+                  (click)="deleteEntry(obj.id)"><i nz-icon
+               type="delete"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

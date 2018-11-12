@@ -18,14 +18,36 @@ export class CrudService {
       .valueChanges();
   }
 
-  getCollection(collection: string): any {
+  getCollection(collection: string): Observable<any> {
     return this.afs.collection(collection)
       .snapshotChanges();
   }
 
   createDocument(collection: string, object: any): void {
-    this.afs.collection(collection).
-      add(JSON.parse(JSON.stringify(object)))
+    this.afs.collection(collection)
+      .add(JSON.parse(JSON.stringify(object)))
+      .catch(error => this.handleError(error))
+      .then(res => {
+        console.log(res);
+      });
+  }
+
+  createSubDocument(collection: string, id: string, subCollection: string, object: any): void {
+    this.afs.collection(collection)
+      .doc(id)
+      .ref
+      .collection(subCollection)
+      .add(JSON.parse(JSON.stringify(object)))
+      .catch(error => this.handleError(error))
+      .then(res => {
+        console.log(res);
+      });
+  }
+
+  upsertDocument(collection: string, id: string, object: any): void {
+    this.afs.collection(collection)
+      .doc(id)
+      .set(JSON.parse(JSON.stringify(object)))
       .catch(error => this.handleError(error))
       .then(res => {
         console.log(res);
@@ -42,7 +64,7 @@ export class CrudService {
       });
   }
 
-  updateDocument(collection: string, id: string, object: string): void {
+  updateDocument(collection: string, id: string, object: any): void {
     this.afs
       .collection(collection)
       .doc(id)

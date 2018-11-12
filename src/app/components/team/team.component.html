@@ -1,0 +1,153 @@
+<div nz-row
+     nzGutter="16"
+     [nzJustify]="center">
+  <div nz-col
+       [nzSpan]="12">
+    <nz-card nzTitle="Team members">
+      <div class="table-container"
+           *ngIf="!showSelectedMember">
+        <form nz-form
+              [formGroup]="validateForm"
+              (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="5"
+                           nzRequired
+                           nzFor="note">Name
+            </nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <input id="name"
+                     type="text"
+                     nz-input
+                     formControlName="name">
+              <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input a
+                name!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="5"
+                           nzRequired
+                           nzFor="note">
+              Email
+            </nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <input id="email"
+                     type="text"
+                     nz-input
+                     formControlName="email">
+              <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">
+                Please input a
+                email!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control [nzSpan]="12"
+                             [nzOffset]="5">
+              <button nz-button
+                      nzType="primary">Add Member</button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+        <nz-table #filterTable
+                  [nzData]="displayData">
+          <thead (nzSortChange)="sort($event)"
+                 nzSingleSort>
+            <tr>
+              <th nzShowSort
+                  nzSortKey="name">
+                Name
+              </th>
+              <th nzShowSort
+                  nzSortKey="email">
+                Email
+              </th>
+              <th nzShowSort
+                  nzSortKey="createdBy">
+                Creation Date
+              </th>
+              <th>
+              </th>
+              <th>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let obj of filterTable.data"
+                routerLinkActive="active"
+                routerLink="/team/{{teamId}}/member/{{obj.id}}">
+              <td>{{obj.data.name}}</td>
+              <td>{{obj.data.email}}</td>
+              <td>{{obj.data.createdDate | date: 'dd. MMMM yyyy @:HH:MM'}}</td>
+              <td>
+                <button nz-button
+                        routerLinkActive="active"
+                        routerLink="/team/{{teamId}}/member/{{obj.id}}"
+                        nzShape="circle"
+                        nzType="primary">
+                  <i nz-icon
+                     type="user">
+                  </i>
+                </button>
+              </td>
+              <td>
+                <button nz-button
+                        nzType="danger"
+                        nzShape="circle"
+                        (click)="deleteMember(obj.id)">
+                  <i nz-icon
+                     type="delete">
+                  </i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col
+       [nzSpan]="12">
+    <nz-card *ngIf="team">
+      <nz-card-meta nzTitle="Team skill overview">
+      </nz-card-meta>
+      <br>
+      <div>
+        <div nz-row
+             [nzJustify]="center"
+             [nzGutter]="6">
+          <div nz-col
+               [nzSpan]="12">
+            <nz-card nzTitle="Frontend">
+              <nz-progress [nzPercent]="getSkillOverview('frontend')"
+                           nzType="dashboard">
+              </nz-progress>
+            </nz-card>
+          </div>
+          <div nz-col
+               [nzSpan]="12">
+            <nz-card nzTitle="Backend">
+              <nz-progress [nzPercent]="getSkillOverview('backend')"
+                           nzType="dashboard">
+              </nz-progress>
+            </nz-card>
+          </div>
+          <div nz-col
+               [nzSpan]="12">
+            <nz-card nzTitle="DevOps">
+              <nz-progress [nzPercent]="getSkillOverview('devops')"
+                           nzType="dashboard">
+              </nz-progress>
+            </nz-card>
+          </div>
+          <div nz-col
+               [nzSpan]="12">
+            <nz-card nzTitle="Process">
+              <nz-progress [nzPercent]="getSkillOverview('process')"
+                           nzType="dashboard">
+              </nz-progress>
+            </nz-card>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

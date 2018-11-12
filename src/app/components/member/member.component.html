@@ -1,0 +1,128 @@
+<div nz-row
+     nzGutter="16"
+     [nzJustify]="center">
+  <div nz-col
+       [nzSpan]="16">
+    <nz-card *ngIf="member"
+             [nzActions]="[actionBack]">
+      <nz-card-meta nzTitle=" {{member.name}}"
+                    nzDescription="{{member.email}}"
+                    [nzAvatar]="avatarTemplate">
+      </nz-card-meta>
+      <br>
+      <h4>Skills</h4>
+      <div nz-row
+           *ngFor="let memberSkill of member.skills">
+        <div nz-col
+             nzSpan="12">
+          {{memberSkill.skill.name}}
+        </div>
+        <div nz-col
+             nzSpan="8">
+          <nz-rate [ngModel]="memberSkill.value"></nz-rate>
+        </div>
+        <div nz-col
+             nzSpan="4">
+          <button nz-button
+                  (click)="removeSkill(memberSkill)"
+                  nzShape="circle"
+                  nzType="danger">
+            <i nz-icon
+               type="delete">
+            </i>
+          </button>
+        </div>
+      </div>
+      <br>
+      <hr>
+      <div nz-row>
+        <div nz-col
+             nzSpan="8">
+          <nz-select nzMode="tags"
+                     style="width: 100%;"
+                     nzPlaceHolder="Tag Mode"
+                     [(ngModel)]="listOfTagOptions">
+            <nz-option *ngFor="let option of shownSkills"
+                       [nzLabel]="option.name"
+                       [nzValue]="option">
+            </nz-option>
+          </nz-select>
+        </div>
+        <div nz-col
+             nzSpan="4">
+        </div>
+        <div nz-col
+             nzSpan="8">
+          <nz-rate [(ngModel)]="skillValue"></nz-rate>
+        </div>
+        <div nz-col
+             nzSpan="4">
+          <button nz-button
+                  (click)="addSkills()"
+                  nzShape="circle"
+                  nzType="primary">
+            <i nz-icon
+               type="plus">
+            </i>
+          </button>
+        </div>
+      </div>
+    </nz-card>
+    <ng-template #avatarTemplate>
+      <nz-avatar nzIcon="anticon anticon-user"></nz-avatar>
+    </ng-template>
+    <ng-template #actionBack>
+      <button nz-button
+              routerLinkActive="active"
+              routerLink="/team/{{teamId}}"
+              nzType="default">Back</button>
+    </ng-template>
+    <br>
+  </div>
+  <div nz-col
+       [nzSpan]="8">
+    <nz-card *ngIf="member">
+      <nz-card-meta nzTitle="Skills overview">
+      </nz-card-meta>
+      <br>
+      <div>
+        <div nz-row
+             [nzJustify]="center"
+             [nzGutter]="6">
+          <div nz-col
+               [nzSpan]="12">
+            <nz-card nzTitle="Frontend">
+              <nz-progress [nzPercent]="getSkillOverview('frontend')"
+                           nzType="dashboard">
+              </nz-progress>
+            </nz-card>
+          </div>
+          <div nz-col
+               [nzSpan]="12">
+            <nz-card nzTitle="Backend">
+              <nz-progress [nzPercent]="getSkillOverview('backend')"
+                           nzType="dashboard">
+              </nz-progress>
+            </nz-card>
+          </div>
+          <div nz-col
+               [nzSpan]="12">
+            <nz-card nzTitle="DevOps">
+              <nz-progress [nzPercent]="getSkillOverview('devops')"
+                           nzType="dashboard">
+              </nz-progress>
+            </nz-card>
+          </div>
+          <div nz-col
+               [nzSpan]="12">
+            <nz-card nzTitle="Process">
+              <nz-progress [nzPercent]="getSkillOverview('process')"
+                           nzType="dashboard">
+              </nz-progress>
+            </nz-card>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

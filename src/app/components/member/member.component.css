@@ -1,4 +1,4 @@
-.input {
+.input{
     height: 50px;
     font-size: 30px;
 }
@@ -9,7 +9,7 @@ nz-progress {
     display: inline-block;
 }
 
-.inner-container {
+.inner-container{
     margin: 16px;
 }
 
@@ -25,10 +25,6 @@ nz-progress {
     margin-right: 20px;
 }
 
-.table-container {
+.table-container{
     width: 88vw;
-}
-
-.todo-input-field {
-    width: 250px;
 }

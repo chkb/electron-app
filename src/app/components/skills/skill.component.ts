@@ -1,37 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { Member } from 'src/app/models/member';
+import { Team } from 'src/app/models/team';
 import { CrudService } from 'src/app/services/crud-service/crud.service';
 
 import { moveIn } from '../../router.animations';
-import { createComponentFactory } from '@angular/core/src/view';
-import { Team } from 'src/app/models/team';
+import { Skill } from 'src/app/models/skill';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  selector: 'app-skill',
+  templateUrl: './skill.component.html',
+  styleUrls: ['./skill.component.css'],
   animations: [moveIn()],
   // tslint:disable-next-line:use-host-property-decorator
   host: { '[@moveIn]': '' }
 })
-export class DashboardComponent implements OnInit {
-  nameList = [
-    { text: 'Joe', value: 'Joe' },
-    { text: 'Jim', value: 'Jim' }
-  ];
-  addressList = [
-    { text: 'London', value: 'London' },
-    { text: 'Sidney', value: 'Sidney' }
-  ];
+export class SkillComponent implements OnInit {
+  id: string;
+  skills: Team;
   sortName = null;
   sortValue = null;
   listOfSearchName = [];
   searchAddress: string;
   data = [];
-  displayData = [];
   list = [];
+  displayData = [];
   validateForm: FormGroup;
 
   constructor(
@@ -43,35 +39,16 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItems();
+
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
+      tag: [null, [Validators.required]],
     });
-  }
-
-  submitForm(): void {
-    // tslint:disable-next-line:forin
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-    this.createEntry();
-  }
-
-  createEntry(): void {
-    if (this.validateForm.valid) {
-      const team = new Team();
-      team.createdDate = moment().toISOString();
-      team.name = this.validateForm.controls.name.value;
-      team.createdBy = 'Chakib Benhaddou';
-      team.log = [`Team created by ${team.createdBy}`];
-      team.members = [];
-      this.crudService.createDocument('team', team);
-    }
   }
 
   getItems(): void {
     this.crudService
-      .getCollection('team')
+      .getCollection('skills')
       .subscribe(res => {
         this.list = [];
         this.data = [];
@@ -88,9 +65,29 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  deleteTeam(id: string): void {
-    this.crudService.deleteDocument('team', id);
-    this.getItems();
+  deleteEntry(id: string) {
+    this.crudService.deleteDocument('skills', id);
+  }
+
+
+  submitForm(): void {
+    // tslint:disable-next-line:forin
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+    this.createEntry();
+  }
+
+  createEntry(): void {
+    if (this.validateForm.valid) {
+      const skill = new Skill();
+      skill.name = this.validateForm.controls.name.value;
+      skill.tag = this.validateForm.controls.tag.value;
+
+      this.crudService.createDocument('skills', skill);
+      this.createNotification('success', 'Update', 'Skill added');
+    }
   }
 
   sort(sort: { key: string, value: string }): void {
@@ -109,7 +106,7 @@ export class DashboardComponent implements OnInit {
     /** filter data **/
     const filterFunc = item => (this.searchAddress ? item.address.indexOf(this.searchAddress) !== -1 : true)
       && (this.listOfSearchName.length ? this.listOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
-    const data = this.data.filter(item => filterFunc(item));
+    const data = this.list.filter(item => filterFunc(item.data));
     /** sort data **/
     if (this.sortName && this.sortValue) {
       this.displayData = data
@@ -120,9 +117,8 @@ export class DashboardComponent implements OnInit {
       this.displayData = data;
     }
   }
-
-  createNotification(type: string): void {
-    this.notification.create(type, 'Notification Title',
-      'This is the content of the notification. This is the content of the notification. This is the content of the notification.');
+  // 'success', 'danger', 'info', 'Error'
+  createNotification(type: string, title: string, text: string): void {
+    this.notification.create(type, title, text);
   }
 }

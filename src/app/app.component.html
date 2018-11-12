@@ -1,18 +1,41 @@
 <nz-layout>
     <nz-sider nzCollapsible
-              [(nzCollapsed)]="isCollapsed">
-        <div class="logo">
-        </div>
+              [(nzCollapsed)]="isCollapsed"
+              (mouseover)="isCollapsed=false">
+        <img class="logo"
+             src="assets/skillz_logo.png">
         <ul nz-menu
             [nzTheme]="'dark'"
             [nzMode]="'inline'"
             [nzInlineCollapsed]="isCollapsed">
-            <li nz-submenu>
-                <span title><i nz-icon
-                       type="dashboard"></i><span class="nav-text">Dashboard</span></span>
-
+            <li nz-menu-item
+                [routerLink]="[ '/dashboard' ]"
+                routerLinkActive="active">
+                <span title>
+                    <i nz-icon
+                       type="dashboard"></i>
+                    <span class="nav-text">Dashboard</span>
+                </span>
             </li>
-            <li nz-submenu>
+            <li nz-menu-item
+                [routerLink]="[ '/dashboard' ]"
+                routerLinkActive="active">
+                <span title>
+                    <i nz-icon
+                       type="team"></i>
+                    <span class="nav-text">My Teams</span>
+                </span>
+            </li>
+            <li nz-menu-item
+                [routerLink]="[ '/skills' ]"
+                routerLinkActive="active">
+                <span title>
+                    <i nz-icon
+                       type="bars"></i>
+                    <span class="nav-text">Skill List</span>
+                </span>
+            </li>
+            <!-- <li nz-submenu>
                 <span title><i nz-icon
                        type="team"></i><span class="nav-text">Team</span></span>
                 <ul>
@@ -21,15 +44,11 @@
                     <li nz-menu-item>Edit Form</li>
                     <li nz-menu-item>View Form</li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </nz-sider>
-    <nz-layout>
+    <nz-layout (mouseover)="isCollapsed=true">
         <nz-header style="background: #001529; padding:8px;">
-            <i class="anticon trigger"
-               [class.anticon-menu-fold]="!isCollapsed"
-               [class.anticon-menu-unfold]="isCollapsed"
-               (click)="isCollapsed=!isCollapsed"></i>
         </nz-header>
         <nz-content style="margin:0 16px;">
             <nz-breadcrumb style="margin:16px 0;">

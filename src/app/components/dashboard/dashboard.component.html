@@ -1,68 +1,50 @@
-<div class="table-container">
-  <form nz-form
-        [formGroup]="validateForm"
-        (ngSubmit)="submitForm()">
-    <nz-form-item>
-      <nz-form-label [nzSpan]="5"
-                     nzRequired
-                     nzFor="note">Name</nz-form-label>
-      <nz-form-control [nzSpan]="12">
-        <input id="name"
-               type="text"
-               nz-input
-               formControlName="name">
-        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input a name!</nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="5"
-                     nzRequired
-                     nzFor="note">Amount</nz-form-label>
-      <nz-form-control [nzSpan]="12">
-        <input id="amount"
-               type="number"
-               nz-input
-               formControlName="amount">
-        <nz-form-explain *ngIf="validateForm.get('amount').dirty && validateForm.get('amount').errors">Please input a
-          number!</nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control [nzSpan]="12"
-                       [nzOffset]="5">
-        <button nz-button
-                nzType="primary">Submit</button>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
+<form nz-form
+      [formGroup]="validateForm"
+      (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="5"
+                   nzRequired
+                   nzFor="note">Team name</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <input id="name"
+             type="text"
+             nz-input
+             formControlName="name">
+      <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input a name!</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="12"
+                     [nzOffset]="5">
+      <button nz-button
+              nzType="primary">Submit</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
 
-  <nz-table #filterTable
-            [nzData]="displayData">
-    <thead (nzSortChange)="sort($event)"
-           nzSingleSort>
-      <tr>
-        <th nzShowSort
-            nzSortKey="name"
-            nzShowFilter
-            [nzFilters]="nameList"
-            (nzFilterChange)="filter($event,searchAddress)">Name</th>
-        <th nzShowSort
-            nzSortKey="age">Amount</th>
-        <th nzShowSort
-            nzSortKey="address"
-            nzShowFilter
-            [nzFilterMultiple]="false"
-            [nzFilters]="addressList"
-            (nzFilterChange)="filter(listOfSearchName,$event)">Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of filterTable.data">
-        <td>{{data.name}}</td>
-        <td>{{data.amount}}</td>
-        <td>{{data.date | date: 'Den dd. MMMM yyyy'}}</td>
-      </tr>
-    </tbody>
-  </nz-table>
-
+<div>
+  <div nz-row
+       [nzGutter]="8">
+    <div *ngFor="let obj of displayData"
+         nz-col
+         [nzSpan]="8">
+      <nz-card nzTitle="{{obj.data.name}}"
+               [nzActions]="[actionEdit,actionDelete]">
+        <p>{{obj.data.createdBy}}</p>
+        <p>{{obj.data.createdDate | date: 'dd. MMMM yyyy'}}</p>
+      </nz-card>
+      <ng-template #actionEdit>
+        <a routerLinkActive="active"
+           routerLink="/team/{{obj.id}}">
+          <i nz-icon
+             type="edit"></i>
+        </a>
+      </ng-template>
+      <ng-template #actionDelete>
+        <i nz-icon
+           (click)="deleteTeam(obj.id)"
+           type="delete"></i>
+      </ng-template>
+    </div>
+  </div>
 </div>

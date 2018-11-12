@@ -3,15 +3,16 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MemberComponent } from './components/member/member.component';
+import { SkillComponent } from './components/skills/skill.component';
+import { TeamComponent } from './components/team/team.component';
 import { AuthGuard } from './core/auth-guard.service';
 import { LoginComponent } from './login/login.component';
-import { TodosPageComponent } from './components/todos/todos-page/todo.component';
-
 
 const routes: Route[] = [
     {
         path: '',
-        redirectTo: '/todos',
+        redirectTo: '/dashboard',
         pathMatch: 'full'
     },
     {
@@ -22,18 +23,35 @@ const routes: Route[] = [
         },
     },
     {
-        path: 'todos',
-        component: TodosPageComponent,
-        data: {
-            breadcrumb: 'todo'
-        },
-    },
-    {
         path: 'dashboard',
         component: DashboardComponent,
         canActivate: [AuthGuard],
         data: {
             breadcrumb: 'dashboard'
+        },
+    },
+    {
+        path: 'team/:teamId',
+        component: TeamComponent,
+        canActivate: [AuthGuard],
+        data: {
+            breadcrumb: 'team'
+        },
+    },
+    {
+        path: 'team/:teamId/member/:memberId',
+        component: MemberComponent,
+        canActivate: [AuthGuard],
+        data: {
+            breadcrumb: 'member'
+        },
+    },
+    {
+        path: 'skills',
+        component: SkillComponent,
+        canActivate: [AuthGuard],
+        data: {
+            breadcrumb: 'skills'
         },
     }
 ];

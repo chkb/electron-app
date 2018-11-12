@@ -1,0 +1,30 @@
+.input {
+    height: 50px;
+    font-size: 30px;
+}
+
+nz-progress {
+    margin-right: 8px;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.inner-container {
+    margin: 16px;
+}
+
+.head-example {
+    width: 42px;
+    height: 42px;
+    border-radius: 4px;
+    background: #eee;
+    display: inline-block;
+}
+
+.ant-badge:not(.ant-badge-status) {
+    margin-right: 20px;
+}
+
+.table-container {
+    width: 100%;
+}
