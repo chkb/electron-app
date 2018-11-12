@@ -42,7 +42,7 @@
       </ng-template>
       <ng-template #actionDelete>
         <i nz-icon
-           (click)="deleteTeam(obj.id)"
+           (click)="deleteTeam(obj.id); event.stopPropagation();"
            type="delete"></i>
       </ng-template>
     </div>
