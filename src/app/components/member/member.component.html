@@ -23,7 +23,7 @@
         <div nz-col
              nzSpan="4">
           <button nz-button
-                  (click)="removeSkill(memberSkill)"
+                  (click)="removeSkill(memberSkill); event.stopPropagation();"
                   nzShape="circle"
                   nzType="danger">
             <i nz-icon
@@ -57,7 +57,7 @@
         <div nz-col
              nzSpan="4">
           <button nz-button
-                  (click)="addSkills()"
+                  (click)="addSkills(); event.stopPropagation()"
                   nzShape="circle"
                   nzType="primary">
             <i nz-icon

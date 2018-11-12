@@ -70,9 +70,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let obj of filterTable.data"
-                routerLinkActive="active"
-                routerLink="/team/{{teamId}}/member/{{obj.id}}">
+            <tr *ngFor="let obj of filterTable.data">
               <td>{{obj.data.name}}</td>
               <td>{{obj.data.email}}</td>
               <td>{{obj.data.createdDate | date: 'dd. MMMM yyyy @:HH:MM'}}</td>

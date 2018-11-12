@@ -71,7 +71,7 @@
           <button nz-button
                   nzType="danger"
                   nzShape="circle"
-                  (click)="deleteEntry(obj.id)"><i nz-icon
+                  (click)="deleteEntry(obj.id); event.stopPropagation()"><i nz-icon
                type="delete"></i></button>
         </td>
       </tr>

@@ -48,15 +48,14 @@ export class MemberComponent implements OnInit {
         .subscribe(member => {
           this.member = member;
           this.shownSkills = [];
-          if (this.skills && this.member.skills.length) {
-            const skillsList = this.skills;
+          const skillsList = this.skills;
+          if (this.member.skills) {
             this.member.skills.forEach(memberSkill => {
               const idx = skillsList.findIndex((skill: Skill) => memberSkill.skill.name === skill.name);
               skillsList.splice(idx, 1);
             });
             this.shownSkills = skillsList;
           } else {
-            const skillsList = this.skills;
             this.shownSkills = skillsList;
           }
         });
@@ -111,26 +110,6 @@ export class MemberComponent implements OnInit {
     this.member.skills.splice(idx, 1);
     this.updateMember();
     this.createNotification('Info', 'Update', `${memberSkill.skill.name.toUpperCase()} skill has been deleted from ${this.member.name}`);
-  }
-
-  removeInPlace(array, item) {
-    let foundIndex, fromIndex;
-
-    // Look for the item (the item can have multiple indices)
-    fromIndex = array.length - 1;
-    foundIndex = array.lastIndexOf(item, fromIndex);
-
-    while (foundIndex !== -1) {
-      // Remove the item (in place)
-      array.splice(foundIndex, 1);
-
-      // Bookkeeping
-      fromIndex = foundIndex - 1;
-      foundIndex = array.lastIndexOf(item, fromIndex);
-    }
-
-    // Return the modified array
-    return array;
   }
 
   updateMember(): void {
